@@ -3,6 +3,7 @@ import { parseEnvNumber, parseEnvString } from './utils';
 import { UserController } from './routes/users';
 import  mongoose, { Mongoose } from 'mongoose';
 import * as dotenv from 'dotenv'
+import cors from 'cors'
 if (process.env.NODE_ENV !== 'production') {
     dotenv.config()
 }
@@ -42,6 +43,7 @@ export default class App {
     }
 
     private setupServer():void {
+        this.appServer.use(cors());
         this.appServer.use(express.json());
         this.appServer.use(express.urlencoded({extended: true}));
         this.setupDatabase();
